@@ -1,0 +1,6 @@
+echo "help('modules')" > mod.py && python mod.py && rm mod.py
+pip list | awk '{print$1}'
+pip list
+pip show numpy
+pip search tesseract
+pip freeze > requirements.txt
