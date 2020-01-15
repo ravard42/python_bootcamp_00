@@ -8,6 +8,7 @@ class Recipe:
             raise Exception
         else:
             self.name = name
+
         if not isinstance(cooking_lvl, int):
             print("Recipe __init__ error: cooking_lvl type must be int")
             raise Exception
@@ -16,6 +17,7 @@ class Recipe:
             raise Exception
         else:
             self.cooking_lvl = cooking_lvl
+        
         if not isinstance(cooking_time, int):
             print("Recipe __init__ error: cooking_time type must be int")
             raise Exception
@@ -24,6 +26,7 @@ class Recipe:
             raise Exception
         else:
             self.cooking_time = cooking_time
+        
         if not isinstance(ingredients, list):
             print("Recipe __init__ error: ingredients type must be list")
             raise Exception
@@ -35,6 +38,7 @@ class Recipe:
             raise Exception
         else:
             self.ingredients = ingredients
+        
         if not isinstance(recipe_type, str):
             print("Recipe __init__ error: recipe_type type must be str")
             raise Exception
@@ -43,11 +47,14 @@ class Recipe:
             raise Exception
         else:
             self.recipe_type = recipe_type
+        
         if not isinstance(description, str):
             print("Recipe __init__ error: description type must be str")
             raise Exception
         else:
             self.description = description
+       
+        print("Recipe initialiation OK!")
 
     def __str__(self):
         """Return the string to print with the recipe info"""
@@ -57,5 +64,5 @@ class Recipe:
         txt += "Recipe cooking_time : {}\n".format(self.cooking_time)
         txt += "Recipe ingredients : {}\n".format(self.ingredients)
         txt += "Recipe recipe_type : {}\n".format(self.recipe_type)
-        txt += "Recipe description : {}".format(self.description)
+        txt += "Recipe description : {}\n".format(self.description)
         return txt
