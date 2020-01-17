@@ -11,9 +11,11 @@ class GotCharacter:
             self.first_name = first_name
         self.is_alive = True
         print("GotCharacter __init__ succeed")
-    
+
     def __repr__(self):
-        return "first_name : {}, is_alive : {}, ".format(self.first_name, self.is_alive)
+        ret = "first_name : {}, is_alive : {}, ".format(
+                self.first_name, self.is_alive)
+        return ret
 
 
 class Stark(GotCharacter):
@@ -30,6 +32,9 @@ people."""
 
     def die(self):
         self.is_alive = False
-    
+
     def __repr__(self):
-        return super().__repr__() + "family_name : {}, house_words : {} ".format(self.family_name, self.house_words)
+        ret = super().__repr__()
+        ret += "family_name : {}, house_words : {} ".format(
+                self.family_name, self.house_words)
+        return ret

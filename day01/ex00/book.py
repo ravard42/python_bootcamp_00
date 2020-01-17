@@ -1,8 +1,11 @@
 import datetime
 from recipe import Recipe
 
+
 class Book:
-    def __init__(self, name, recipes_list={"starter" : [], "lunch" : [], "dessert" : []}):
+
+    def __init__(self, name, recipes_list={
+            "starter": [], "lunch": [], "dessert": []}):
         if not isinstance(name, str):
             print("Book __init__ error: name type must be str")
             raise Exception
@@ -11,26 +14,30 @@ class Book:
             raise Exception
         else:
             self.name = name
-
         self.creation_date = datetime.datetime.now()
         self.last_update = datetime.datetime.now()
-    
         if not isinstance(recipes_list, dict):
             print("Book __init__ error: recipes_list type must be dict")
             raise Exception
-        if sorted([key for key in recipes_list.keys()]) != sorted(["starter", "lunch", "dessert"]):
-            print("Book __init__ error: recipes_list dict must contain 3keys : 'starter', 'lunch', 'dessert'")
+        if sorted([key for key in recipes_list.keys()]) != sorted(
+                ["starter", "lunch", "dessert"]):
+            print("Book __init__ error: recipes_list dict bad keys")
             raise Exception
-        for val in recipes_list.values():
-            if not isinstance(val, list):
-                print("Book __init__ error: recipes_list dict values must be a list")
+        err_l = [val for val in recipes_list.values()
+                 if not isinstance(val, list)]
+        if len(err_l):
+            print("Book __init__ error:"
+                  "recipes_list dict values must be a list")
+            raise Exception
+        self.all = []
+        for key in recipes_list:
+            self.all += recipes_list[key]
+        for r in self.all:
+            if not isinstance(r, Recipe):
+                print("Book __init__ error:"
+                      "recipes_list dict values must be a list of Recipe type")
                 raise Exception
-        self.all = recipes_list['starter'] + recipes_list['lunch'] + recipes_list['dessert']
-        if len([x for x in self.all if isinstance(x, Recipe)]) != len(self.all):
-            print("Book __init__ error: recipes_list dict values must be a list of Recipe type")
-            raise Exception
         self.recipes_list = recipes_list
-
         print("Book initialiation OK!")
 
     def __str__(self):
@@ -45,25 +52,22 @@ class Book:
         return txt
 
     def get_recipe_by_name(self, name):
-        """Print a recipe with the name `name` and return the instance""" 
+        """Print a recipe with the name `name` and return the instance"""
         for r in self.all:
             if r.name == name:
                 print(r)
                 return r
             else:
                 print("the recipe " + name + " doesn't exist in your book")
-       # pass
 
     def get_recipes_by_types(self, recipe_type):
         """Get all recipe names for a given recipe_type """
-        if not recipe_type in ['lunch', 'dessert','starter']:
+        if recipe_type not in ['lunch', 'dessert', 'starter']:
             print("bad recype_type")
         else:
             for r in self.recipes_list[recipe_type]:
                 print(r.name)
 
-       # pass
-    
     def add_recipe(self, recipe):
         """Add a recipe to the book and update last_update"""
         if not isinstance(recipe, Recipe):
@@ -71,6 +75,3 @@ class Book:
         else:
             self.recipes_list[recipe.recipe_type].append(recipe)
             last_update = datetime.datetime.now()
-    #  pass
- 
- 
